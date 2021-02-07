@@ -41,6 +41,8 @@ export class Anchor extends Authenticator {
   private disableGreymassFuel: boolean = false
   // display the request status returned by anchor-link, defaults to false (ual has it's own)
   private requestStatus: boolean = false
+  // Set the status as loading
+  private isInitFinished: boolean = false
 
   /**
    * Anchor Constructor.
@@ -89,6 +91,7 @@ export class Anchor extends Authenticator {
    * Called after `shouldRender` and should be used to handle any async actions required to initialize the authenticator
    */
   public async init() {
+    this.isInitFinished = false
     // establish anchor-link
     this.link = new AnchorLink({
       chainId: this.chainId,
@@ -106,6 +109,7 @@ export class Anchor extends Authenticator {
     if (session) {
       this.users = [new AnchorUser(this.rpc, { session })]
     }
+    this.isInitFinished = true
   }
 
   /**
@@ -141,7 +145,7 @@ export class Anchor extends Authenticator {
    * Returns true if the authenticator is loading while initializing its internal state.
    */
   public isLoading() {
-    return false
+    return !this.isInitFinished
   }
 
   public getName() {
@@ -165,7 +169,7 @@ export class Anchor extends Authenticator {
    * ie. If your Authenticator App does not support mobile, it returns false when running in a mobile browser.
    */
   public shouldRender() {
-    return !this.isLoading()
+    return true
   }
 
   /**
