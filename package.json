@@ -1,11 +1,15 @@
 {
-  "name": "ual-anchor",
+  "name": "@nft-blender/ual-anchor",
   "version": "0.5.2",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
     "name": "Greymass",
     "url": "https://greymass.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "contributors": [
     "Aaron Cox",
